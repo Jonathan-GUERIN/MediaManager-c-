@@ -1,0 +1,2 @@
+mother_multimedia.o: mother_multimedia.cpp mother_multimedia.h
+main.o: main.cpp mother_multimedia.h
