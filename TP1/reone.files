@@ -1,5 +1,7 @@
 film.cpp
 film.h
+group.cpp
+group.h
 main.cpp
 mother_multimedia.cpp
 mother_multimedia.h

@@ -7,8 +7,10 @@
 #include "photo.h"
 #include "video.h"
 #include "film.h"
+#include "group.h"
 #include <iostream>
 #include <string>
+#include <memory>
 
 using namespace std;
 
@@ -54,6 +56,27 @@ int main(int argc, const char* argv[])
     int * chap = new int[2];
     Film * film = new Film("test_video","/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm",2,chap,2);
     film->showChapters(std::cout);
+
+    //Question 8
+    //Group * group = new Group("test_group");
+    shared_ptr<Photo> photo2(new Photo("test_photo2", "/cal/exterieurs/jguerin-21/inf224/TP1/lena.tif", 5, 5));
+    shared_ptr<Video> video2(new Video("test_video2", "/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm", 2));
+    shared_ptr<Film> film2(new Film("test_film2", "/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm", 2, chap, 2));
+    shared_ptr<Group> group1(new Group("Test group 1"));
+    group1->push_back(photo2);
+    group1->push_back(video2);
+    group1->push_back(film2);
+
+    //printing elements
+    for (auto & it : * group1)
+    {
+        it->display(cout);
+    }
+
+    //p.reset() makes the smart pointer points to nowhere
+    group1.reset();
+    if (group1.use_count() != 0) {cout << "reset n'a pas marché" << endl;}
+    else {cout << "le reset a fonctionné" << endl; }
 
     return 0;
 }
