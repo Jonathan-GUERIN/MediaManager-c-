@@ -2,6 +2,8 @@ film.cpp
 film.h
 group.cpp
 group.h
+handlingbase.cpp
+handlingbase.h
 main.cpp
 mother_multimedia.cpp
 mother_multimedia.h

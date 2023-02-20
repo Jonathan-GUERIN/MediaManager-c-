@@ -8,6 +8,7 @@
 #include "video.h"
 #include "film.h"
 #include "group.h"
+#include "handlingbase.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -57,7 +58,7 @@ int main(int argc, const char* argv[])
     Film * film = new Film("test_video","/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm",2,chap,2);
     film->showChapters(std::cout);
 
-    //Question 8
+    //Question 8 et 9
     //Group * group = new Group("test_group");
     shared_ptr<Photo> photo2(new Photo("test_photo2", "/cal/exterieurs/jguerin-21/inf224/TP1/lena.tif", 5, 5));
     shared_ptr<Video> video2(new Video("test_video2", "/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm", 2));
@@ -77,6 +78,19 @@ int main(int argc, const char* argv[])
     group1.reset();
     if (group1.use_count() != 0) {cout << "reset n'a pas marché" << endl;}
     else {cout << "le reset a fonctionné" << endl; }
+
+    //Question 10
+    HandlingBase * base = new HandlingBase();
+    base->createPhoto("test_photo2", "/cal/exterieurs/jguerin-21/inf224/TP1/lena.tif", 5, 5);
+    base->createVideo("test_video2", "/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm", 2);
+    base->createFilm("test_film2", "/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm", 2, chap, 2);
+    base->createGroup("Test group 1");
+
+    base->displayMedia("test_photo2");
+    base->playMedia("test_photo2");
+    base->removeMedia("test_video2");
+    base->displayMedia("test_video2");
+    base->displayGroup("Test group 1");
 
     return 0;
 }
