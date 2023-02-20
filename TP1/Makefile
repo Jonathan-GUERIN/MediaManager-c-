@@ -14,7 +14,7 @@ PROG = reone_prog
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = mother_multimedia.cpp main.cpp
+SOURCES = mother_multimedia.cpp main.cpp film.cpp
 
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)

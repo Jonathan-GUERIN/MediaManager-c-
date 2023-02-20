@@ -6,6 +6,7 @@
 #include "mother_multimedia.h"
 #include "photo.h"
 #include "video.h"
+#include "film.h"
 #include <iostream>
 #include <string>
 
@@ -38,7 +39,7 @@ int main(int argc, const char* argv[])
 
     for(unsigned int i=0; i < 2; ++i){
         objects[i]->display(std::cout);
-        objects[i]->play();
+        //objects[i]->play();
     }
 
     //Question 5
@@ -49,6 +50,10 @@ int main(int argc, const char* argv[])
     //Quel est le type des éléments du tableau : le tableau doit-il contenir des objets ou des pointeurs vers ces objets ? Pourquoi ? Comparer à Java.
     //Le tableau est composé de Mother_multimedia et doit contenir des pointeurs de ces objets, si l'on stockait les objets directement il seraient stockés dans la pile (mémoirme automatique)
     // En Java, on ne peut en revanche que faire des tableaux de pointeurs pour les objets, en C++ on peut faire des tableaux de type de base et d'objets.
+
+    int * chap = new int[2];
+    Film * film = new Film("test_video","/cal/exterieurs/jguerin-21/inf224/TP1/sample.webm",2,chap,2);
+    film->showChapters(std::cout);
 
     return 0;
 }
