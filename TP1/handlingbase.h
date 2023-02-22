@@ -39,6 +39,7 @@ public:
     void displayGroup(string name) const;
 
     void playMedia(string name) const;
+    bool processRequest(std::string const & request);
 };
 
 #endif // HANDLINGBASE_H

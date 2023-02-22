@@ -31,6 +31,7 @@ shared_ptr<Group> HandlingBase::createGroup(string name){
 void HandlingBase::removeMedia(string name){
     shared_ptr<Mother_multimedia> media = searchMedia(name);
     if(media != nullptr){
+        media.reset();
         allMedias.erase(name);
     }
 }
@@ -38,6 +39,7 @@ void HandlingBase::removeMedia(string name){
 void HandlingBase::removeGroup(string name){
     shared_ptr<Group> group = searchGroup(name);
     if(group != nullptr){
+        group.reset();
         allGroups.erase(name);
     }
 }

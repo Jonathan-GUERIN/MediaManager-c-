@@ -9,12 +9,14 @@
 #include "film.h"
 #include "group.h"
 #include "handlingbase.h"
+#include "tcpserver.h"
 #include <iostream>
 #include <string>
 #include <memory>
+#define VERSION2
 
 using namespace std;
-
+#ifdef VERSION1
 int main(int argc, const char* argv[])
 {
     std::cout << "Hello brave new world" << std::endl;
@@ -92,5 +94,51 @@ int main(int argc, const char* argv[])
     base->displayMedia("test_video2");
     base->displayGroup("Test group 1");
 
+    //Les méthodes précédentes permettent d'assurer la cohérence de la base de données car quand on crée un objet on l'ajoute à la table adéquate.
+    //Par contre, ce ne sera pas le cas si on crée un objet directement avec new (il n'appartiendra à aucune table).
+    //Comment peut-on l'interdire, afin que seule la classe servant à manipuler les objets puisse en créer de nouveaux ?
+    //Il suffit d'interdire l'accès à new en mettant le constructeur de ces objets dans la classe friend au lieu de public,
+    //il faut ensuite faire attention à bien indiquer les méthodes qui appellent ce constructeurs comme étant friend.
+
     return 0;
 }
+#endif
+
+#ifdef VERSION2
+
+const int PORT = 3331;
+
+int main(int argc, const char* argv[])
+{
+    HandlingBase * base = new HandlingBase();
+    cout << "Partie serveur issue de server.cpp";
+    // cree le TCPServer
+    auto * server = new TCPServer([&base](std::string const &request, std::string &response) {
+            //std::function< bool(std::string const& request, std::string& response) >;
+            //TCPServer(Callback const &callback)
+            // the request sent by the client to the server
+            std::cout << "request: " << request << std::endl;
+
+            // the response that the server sends back to the client
+            //response = "RECEIVED: " + request;
+            //response = "0here";
+
+            // return false would close the connection with the client
+            base->processRequest(request);
+            return true;
+    });
+
+
+    // lance la boucle infinie du serveur
+    std::cout << "Starting Server on port " << PORT << std::endl;
+    int status = server->run(PORT);
+
+    // en cas d'erreur
+    if (status < 0) {
+      std::cerr << "Could not start Server on port " << PORT << std::endl;
+      return 1;
+    }
+
+    return 0;
+}
+#endif
